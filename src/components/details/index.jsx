@@ -19,6 +19,7 @@ import {
   FaStackOverflow,
   FaTelegram,
   FaLinkedin,
+  FaTiktok,
 } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import { skeleton } from '../../helpers/utils';
@@ -178,6 +179,14 @@ const Details = ({ profile, loading, social, github }) => {
                   title="Instagram:"
                   value={social.instagram}
                   link={`https://www.instagram.com/${social.instagram}`}
+                />
+              )}
+              {social?.tiktok && (
+                <ListItem
+                  icon={<FaTiktok />}
+                  title="TikTok:"
+                  value={social.tiktok}
+                  link={`https://www.tiktok.com/@${social.tiktok}`}
                 />
               )}
               {social?.medium && (

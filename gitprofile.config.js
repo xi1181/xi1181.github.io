@@ -12,12 +12,13 @@ const config = {
   },
   social: {
     linkedin: 'company/the-young-maker/',
-    twitter: '',
     facebook: 'theyoungmakersingapore',
     instagram: 'the.young.maker',
-    dev: '',
+    tiktok: 'the.young.maker',
     email: 'hello@theyoungmaker.com',
-    website: 'theyoungmaker.com',
+    website: 'http://theyoungmaker.com',
+    // dev: '',
+    // twitter: '',
     // mastodon: '',
     // dribbble: '',
     // behance: '',
@@ -118,11 +119,11 @@ const config = {
     snippetVersion: 6,
   },
   themeConfig: {
-    defaultTheme: 'winter',
+    defaultTheme: 'bumblebee',
 
     // Hides the switch in the navbar
     // Useful if you want to support a single color mode
-    disableSwitch: false,
+    disableSwitch: true,
 
     // Should use the prefers-color-scheme media-query,
     // using user system preferences, instead of the hardcoded defaultTheme

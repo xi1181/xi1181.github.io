@@ -254,6 +254,7 @@ GitProfile.propTypes = {
       medium: PropTypes.string,
       dev: PropTypes.string,
       stackoverflow: PropTypes.string,
+      tiktok: PropTypes.string,
       website: PropTypes.string,
       skype: PropTypes.string,
       telegram: PropTypes.string,
