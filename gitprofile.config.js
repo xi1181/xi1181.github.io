@@ -11,12 +11,13 @@ const config = {
     },
   },
   social: {
-    linkedin: '',
+    linkedin: 'company/the-young-maker/',
     twitter: '',
-    facebook: '',
-    instagram: '',
+    facebook: 'theyoungmakersingapore',
+    instagram: 'the.young.maker',
     dev: '',
-    email: '',
+    email: 'hello@theyoungmaker.com',
+    website: 'theyoungmaker.com',
     // mastodon: '',
     // dribbble: '',
     // behance: '',
@@ -24,7 +25,6 @@ const config = {
     // stackoverflow: '', // format: userid/username
     // skype: '',
     // telegram: '',
-    // website: '',
     // phone: '',
   },
   resume: {
@@ -182,7 +182,7 @@ const config = {
   class="text-primary" href="https://github.com/arifszn/gitprofile"
   target="_blank"
   rel="noreferrer"
->GitProfile</a> and <div class="flex items-center"><img width="20" height="20" src="./public/TYM.png"/> <a class="text-primary" href="https://theyoungmaker.com/" target="_blank" rel="noreferrer">The Young Maker </a></div>`,
+>GitProfile</a> & <div class="flex items-center"><img width="20" height="20" src="./public/TYM.png"/> <a class="text-primary" href="https://theyoungmaker.com/" target="_blank" rel="noreferrer">The Young Maker </a></div>`,
 };
 
 export default config;

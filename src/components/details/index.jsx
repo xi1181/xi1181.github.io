@@ -84,6 +84,9 @@ const Details = ({ profile, loading, social, github }) => {
     return array;
   };
 
+  const isCompanyLinkedIn =
+    social?.linkedin && social.linkedin.includes('company');
+
   return (
     <div className="card shadow-lg compact bg-base-100">
       <div className="card-body">
@@ -138,7 +141,11 @@ const Details = ({ profile, loading, social, github }) => {
                   icon={<FaLinkedin />}
                   title="LinkedIn:"
                   value={social.linkedin}
-                  link={`https://www.linkedin.com/in/${social.linkedin}`}
+                  link={
+                    isCompanyLinkedIn
+                      ? `https://www.linkedin.com/${social.linkedin}`
+                      : `https://www.linkedin.com/in/${social.linkedin}`
+                  }
                 />
               )}
               {social?.dribbble && (
