@@ -26,6 +26,7 @@ import PropTypes from 'prop-types';
 import '../assets/index.css';
 import { formatDistance } from 'date-fns';
 import ExternalProject from './external-project';
+import ScratchProject from './scratch-project';
 
 const bgColor = 'bg-base-300';
 
@@ -40,6 +41,7 @@ const GitProfile = ({ config }) => {
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState(null);
   const [repo, setRepo] = useState(null);
+  const [scratchProjects, setScratchProjects] = useState(null);
 
   useEffect(() => {
     if (sanitizedConfig) {
@@ -54,10 +56,22 @@ const GitProfile = ({ config }) => {
   }, [theme]);
 
   const loadData = useCallback(() => {
-    axios
-      .get(`https://api.github.com/users/${sanitizedConfig.github.username}`)
-      .then((response) => {
-        let data = response.data;
+    setLoading(true);
+
+    const proxyUrl = 'https://api.allorigins.win/raw?url=';
+
+    const fetchGithubData = axios.get(
+      `https://api.github.com/users/${sanitizedConfig.github.username}`
+    );
+
+    const fetchScratchProjects = axios.get(
+      `${proxyUrl}https://api.scratch.mit.edu/users/${sanitizedConfig.scratch.username}/projects`
+    );
+
+    Promise.all([fetchGithubData, fetchScratchProjects])
+      .then(([githubResponse, scratchResponse]) => {
+        // Handle GitHub data
+        let data = githubResponse.data;
 
         let profileData = {
           avatar: data.avatar_url,
@@ -68,15 +82,35 @@ const GitProfile = ({ config }) => {
         };
 
         setProfile(profileData);
-        return data;
-      })
-      .then((userData) => {
-        let excludeRepo = ``;
-        if (userData.public_repos === 0) {
-          setRepo([]);
-          return;
-        }
 
+        // Handle Scratch projects data
+        console.log(sanitizedConfig.scratch.sortBy);
+        const sortedProjectsLimit = scratchResponse.data
+          .sort((a, b) => {
+            // Parse the history.modified timestamps as Date objects
+            if (sanitizedConfig.scratch.sortBy === 'views') {
+              // Sort in descending order (highest views first)
+              return b.stats.views - a.stats.views;
+            } else if (sanitizedConfig.scratch.sortBy === 'remixes') {
+              // Sort in descending order (highest remixes first)
+              return b.stats.remixes - a.stats.remixes;
+            } else {
+              const dateA = new Date(a.history.modified);
+              const dateB = new Date(b.history.modified);
+
+              // Sort in ascending order
+              return dateA - dateB;
+
+              // Sort in descending order (most recent first)
+              // return dateB - dateA;
+            }
+          })
+          .slice(0, sanitizedConfig.scratch.limit);
+
+        setScratchProjects(sortedProjectsLimit);
+
+        // Fetch GitHub repositories
+        let excludeRepo = '';
         sanitizedConfig.github.exclude.projects.forEach((project) => {
           excludeRepo += `+-repo:${sanitizedConfig.github.username}/${project}`;
         });
@@ -87,20 +121,16 @@ const GitProfile = ({ config }) => {
 
         let url = `https://api.github.com/search/repositories?q=${query}&sort=${sanitizedConfig.github.sortBy}&per_page=${sanitizedConfig.github.limit}&type=Repositories`;
 
-        axios
-          .get(url, {
-            headers: {
-              'Content-Type': 'application/vnd.github.v3+json',
-            },
-          })
-          .then((response) => {
-            let data = response.data;
-
-            setRepo(data.items);
-          })
-          .catch((error) => {
-            handleError(error);
-          });
+        return axios.get(url, {
+          headers: {
+            'Content-Type': 'application/vnd.github.v3+json',
+          },
+        });
+      })
+      .then((response) => {
+        // Handle GitHub repositories data
+        let data = response.data;
+        setRepo(data.items);
       })
       .catch((error) => {
         handleError(error);
@@ -202,6 +232,11 @@ const GitProfile = ({ config }) => {
                         loading={loading}
                         github={sanitizedConfig.github}
                         googleAnalytics={sanitizedConfig.googleAnalytics}
+                      />
+                      <ScratchProject
+                        scratchProjects={scratchProjects}
+                        loading={loading}
+                        scratchConfig={sanitizedConfig.scratch}
                       />
                       <ExternalProject
                         loading={loading}

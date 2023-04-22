@@ -1,6 +1,11 @@
 // gitprofile.config.js
 
 const config = {
+  scratch: {
+    username: 'theyoungmaker', // Your Scratch username. (Required)
+    limit: 8, // How many projects to display
+    sortBy: 'date', // date | views | remixes
+  },
   github: {
     username: 'theyoungmaker', // Your GitHub org/user name. (Required)
     sortBy: 'stars', // stars | updated
@@ -33,20 +38,17 @@ const config = {
       'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', // Empty fileUrl will hide the `Download Resume` button.
   },
   skills: [
-    'PHP',
-    'Laravel',
+    'Scratch',
+    'Microbit',
     'JavaScript',
-    'React.js',
-    'Node.js',
-    'Nest.js',
-    'MySQL',
-    'PostgreSQL',
+    'Design Thinking',
+    'Python',
     'Git',
-    'Docker',
-    'PHPUnit',
     'CSS',
-    'Antd',
-    'Tailwind',
+    'MakeCode',
+    'ScratchJr',
+    'Hopscotch',
+    'Robotics',
   ],
   experiences: [
     {
@@ -90,26 +92,28 @@ const config = {
   // To hide the `My Projects` section, keep it empty.
   externalProjects: [
     {
-      title: 'Project Name',
+      title: 'Microbit Flappy Bird',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut.',
-      imageUrl: 'https://via.placeholder.com/250x250',
-      link: 'https://example.com',
+        'This project presents a Flappy Bird-inspired game designed for the Micro:bit v2 platform. It is constructed using for loops, conditional statements, functions, and lists to create an entertaining and interactive gaming experience.',
+      imageUrl:
+        'https://upload.wikimedia.org/wikipedia/en/0/0a/Flappy_Bird_icon.png',
+      link: 'https://makecode.microbit.org/_8hTHCD4ax7ty',
     },
     {
-      title: 'Project Name',
+      title: 'Microbit Space Invaders',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut.',
-      imageUrl: 'https://via.placeholder.com/250x250',
-      link: 'https://example.com',
+        "This project features a traditional Space Invaders game developed for the Microbit v2 platform. It utilizes while loops, conditional statements, variables, and the Microbit's native game coordinate system to deliver an engaging gaming experience.",
+      imageUrl:
+        'https://www.svg.com/img/gallery/the-original-idea-behind-space-invaders-that-could-have-changed-gaming-forever/l-intro-1608754172.jpg',
+      link: 'https://makecode.microbit.org/_UXqLuYJfJRL6',
     },
   ],
   // Display blog posts from your medium or dev account. (Optional)
-  blog: {
-    source: 'dev', // medium | dev
-    username: 'arifszn', // to hide blog section, keep it empty
-    limit: 2, // How many posts to display. Max is 10.
-  },
+  // blog: {
+  //   source: 'dev', // medium | dev
+  //   username: 'arifszn', // to hide blog section, keep it empty
+  //   limit: 2, // How many posts to display. Max is 10.
+  // },
   googleAnalytics: {
     id: '', // GA3 tracking id/GA4 tag id UA-XXXXXXXXX-X | G-XXXXXXXXXX
   },

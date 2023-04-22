@@ -135,6 +135,11 @@ export const sanitizeConfig = (config) => {
   ];
 
   return {
+    scratch: {
+      username: config?.scratch?.username || '',
+      limit: config?.scratch?.limit || 8,
+      sortBy: config?.scratch?.sortBy || 'date',
+    },
     github: {
       username: config?.github?.username || '',
       sortBy: config?.github?.sortBy || 'stars',

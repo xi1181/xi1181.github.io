@@ -1,6 +1,6 @@
-import { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { ga, skeleton } from '../../helpers/utils';
+import { Fragment } from 'react';
+import { skeleton } from '../../helpers/utils';
 import LazyImage from '../lazy-image';
 
 const displaySection = (externalProjects) => {
@@ -15,10 +15,10 @@ const displaySection = (externalProjects) => {
   }
 };
 
-const ExternalProject = ({ externalProjects, loading, googleAnalytics }) => {
+const ExternalProject = ({ scratchProjects, loading, scratchConfig }) => {
   const renderSkeleton = () => {
     let array = [];
-    for (let index = 0; index < externalProjects.length; index++) {
+    for (let index = 0; index < scratchConfig.length; index++) {
       array.push(
         <div className="card shadow-lg compact bg-base-100" key={index}>
           <div className="p-8 h-full w-full">
@@ -69,28 +69,15 @@ const ExternalProject = ({ externalProjects, loading, googleAnalytics }) => {
   };
 
   const renderExternalProjects = () => {
-    return externalProjects.map((item, index) => (
+    return scratchProjects.map((item, index) => (
       <a
         className="card shadow-lg compact bg-base-100 cursor-pointer"
         key={index}
-        href={item.link}
+        href={`https://scratch.mit.edu/projects/${item.id}`}
         onClick={(e) => {
           e.preventDefault();
 
-          try {
-            if (googleAnalytics?.id) {
-              ga.event({
-                action: 'Click External Project',
-                params: {
-                  post: item.title,
-                },
-              });
-            }
-          } catch (error) {
-            console.error(error);
-          }
-
-          window?.open(item.link, '_blank');
+          window?.open(`https://scratch.mit.edu/projects/${item.id}`, '_blank');
         }}
       >
         <div className="p-8 h-full w-full">
@@ -101,11 +88,11 @@ const ExternalProject = ({ externalProjects, loading, googleAnalytics }) => {
                   <h2 className="font-semibold text-lg tracking-wide text-center opacity-60 mb-2">
                     {item.title}
                   </h2>
-                  {item.imageUrl && (
+                  {item.image && (
                     <div className="avatar opacity-90">
                       <div className="w-20 h-20 mask mask-squircle">
                         <LazyImage
-                          src={item.imageUrl}
+                          src={item.image}
                           alt={'thumbnail'}
                           placeholder={skeleton({
                             width: 'w-full',
@@ -117,7 +104,7 @@ const ExternalProject = ({ externalProjects, loading, googleAnalytics }) => {
                     </div>
                   )}
                   <p className="mt-1 text-base-content text-opacity-60 text-sm">
-                    {item.description}
+                    {item.instructions}
                   </p>
                 </div>
               </div>
@@ -130,7 +117,7 @@ const ExternalProject = ({ externalProjects, loading, googleAnalytics }) => {
 
   return (
     <Fragment>
-      {displaySection(externalProjects) && (
+      {displaySection(scratchProjects) && (
         <div className="col-span-1 lg:col-span-2">
           <div className="grid grid-cols-2 gap-6">
             <div className="col-span-2">
@@ -142,10 +129,22 @@ const ExternalProject = ({ externalProjects, loading, googleAnalytics }) => {
                         skeleton({ width: 'w-40', height: 'h-8' })
                       ) : (
                         <span className="text-base-content opacity-70">
-                          My Other Projects
+                          My Scratch Projects
                         </span>
                       )}
                     </h5>
+                    {loading ? (
+                      skeleton({ width: 'w-10', height: 'h-5' })
+                    ) : (
+                      <a
+                        href={`https://scratch.mit.edu/users/${scratchConfig.username}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-base-content opacity-50 hover:underline"
+                      >
+                        See All
+                      </a>
+                    )}
                   </div>
                   <div className="col-span-2">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -163,9 +162,9 @@ const ExternalProject = ({ externalProjects, loading, googleAnalytics }) => {
 };
 
 ExternalProject.propTypes = {
-  externalProjects: PropTypes.array,
+  scratchProjects: PropTypes.array,
   loading: PropTypes.bool.isRequired,
-  googleAnalytics: PropTypes.object,
+  scratchConfig: PropTypes.object.isRequired,
 };
 
 export default ExternalProject;
