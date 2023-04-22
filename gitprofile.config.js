@@ -187,7 +187,7 @@ const config = {
   class="text-primary" href="https://github.com/arifszn/gitprofile"
   target="_blank"
   rel="noreferrer"
->GitProfile</a> & <div class="flex items-center"><img width="20" height="20" src="./public/TYM.png"/> <a class="text-primary" href="https://theyoungmaker.com/" target="_blank" rel="noreferrer">The Young Maker </a></div>`,
+>GitProfile</a> & <div class="flex items-center"><img width="20" height="20" src="TYM.png"/> <a class="text-primary" href="https://theyoungmaker.com/" target="_blank" rel="noreferrer">The Young Maker </a></div>`,
 };
 
 export default config;
