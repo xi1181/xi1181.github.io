@@ -58,14 +58,14 @@ const GitProfile = ({ config }) => {
   const loadData = useCallback(() => {
     setLoading(true);
 
-    const proxyUrl = 'https://api.allorigins.win/raw?url=';
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 
     const fetchGithubData = axios.get(
       `https://api.github.com/users/${sanitizedConfig.github.username}`
     );
 
     const fetchScratchProjects = axios.get(
-      `${proxyUrl}https://api.scratch.mit.edu/users/${sanitizedConfig.scratch.username}/projects`
+      `${proxyUrl}api.scratch.mit.edu/users/${sanitizedConfig.scratch.username}/projects`
     );
 
     Promise.all([fetchGithubData, fetchScratchProjects])
