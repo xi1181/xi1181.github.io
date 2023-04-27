@@ -55,7 +55,7 @@
   <a href="#arifszn"><img src="https://arifszn.github.io/assets/img/drop-shadow.png" width="50%" alt="Shadow"/></a>
 </p>
 
-**GitProfile** is an easy to use portfolio builder where you can create a portfolio page automatically by just providing your GitHub username. It is built using React.js on top of Vite. But it's not necessary to have knowledge on these to get you started. You can make your own copy with zero coding experience.
+**GitProfile** is an easy to use portfolio builder where you can create a portfolio page automatically by just providing your GitHub username. The project was originally built by [Arif](https://arifszn.github.io/gitprofile) and it is modified for use as a template for students of [The Young Maker](https://theyoungmaker.com/) to include Scratch projects as well. It is built using React.js on top of Vite. But it's not necessary to have knowledge on these to get you started. You can make your own copy with zero coding experience.
 
 **Features:**
 
@@ -70,7 +70,7 @@
 ✓ [Experience Section](#experience)  
 ✓ [Certification Section](#certifications)  
 ✓ [Education Section](#education)  
-✓ [Projects Section](#projects)  
+✓ [Projects Section](#projects)
 ✓ [Blog Posts Section](#blog-posts)
 
 To view a live example, **[click here](https://arifszn.github.io/gitprofile)**.
@@ -576,7 +576,7 @@ Your public repo from GitHub will be displayed in the `Github Projects` section 
 const config = {
   // ...
   github: {
-    username: 'arifszn',
+    username: 'theyoungmaker',
     sortBy: 'stars',
     limit: 8,
     exclude: {
@@ -586,6 +586,7 @@ const config = {
   },
 };
 ```
+
 
 #### External Projects
 
@@ -603,6 +604,21 @@ const config = {
       imageUrl: 'https://via.placeholder.com/250x250',
     },
   ],
+};
+```
+
+#### Scratch Projects
+In this section you can showcase your Scratch projects.
+
+```js
+// gitprofile.config.js
+const config = {
+  // ...
+  scratch: {
+    username: 'theyoungmaker', // Your Scratch username. (Required)
+    limit: 8, // How many projects to display; maximum 20
+    sortBy: 'date', // date | views | remixes
+  },
 };
 ```
 
