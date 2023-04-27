@@ -3,7 +3,7 @@
 const config = {
   scratch: {
     username: 'theyoungmaker', // Your Scratch username. (Required)
-    limit: 8, // How many projects to display
+    limit: 8, // How many projects to display; maximum 20
     sortBy: 'date', // date | views | remixes
   },
   github: {

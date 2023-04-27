@@ -58,14 +58,13 @@ const GitProfile = ({ config }) => {
   const loadData = useCallback(() => {
     setLoading(true);
 
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 
     const fetchGithubData = axios.get(
       `https://api.github.com/users/${sanitizedConfig.github.username}`
     );
 
     const fetchScratchProjects = axios.get(
-      `${proxyUrl}api.scratch.mit.edu/users/${sanitizedConfig.scratch.username}/projects`
+      `https://scratchapicors-2c5n.vercel.app/api/scratch?username=${sanitizedConfig.scratch.username}`
     );
 
     Promise.all([fetchGithubData, fetchScratchProjects])
@@ -84,7 +83,6 @@ const GitProfile = ({ config }) => {
         setProfile(profileData);
 
         // Handle Scratch projects data
-        console.log(sanitizedConfig.scratch.sortBy);
         const sortedProjectsLimit = scratchResponse.data
           .sort((a, b) => {
             // Parse the history.modified timestamps as Date objects
