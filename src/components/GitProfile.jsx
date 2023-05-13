@@ -64,7 +64,7 @@ const GitProfile = ({ config }) => {
     );
 
     const fetchScratchProjects = axios.get(
-      `https://scratchapicors-2c5n.vercel.app/api/scratch?username=${sanitizedConfig.scratch.username}`
+      `${sanitizedConfig.scratch.corsProxy}api/scratch?username=${sanitizedConfig.scratch.username}`
     );
 
     Promise.all([fetchGithubData, fetchScratchProjects])
