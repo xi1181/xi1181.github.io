@@ -123,11 +123,12 @@ const config = {
     id: '',
     snippetVersion: 6,
   },
-  themeConfig: {
+  themeConfig: { //TODO: Change the theme of the website to your liking
     defaultTheme: 'bumblebee',
 
     // Hides the switch in the navbar
     // Useful if you want to support a single color mode
+    //TODO: Change to false if you want to have the option to see switch
     disableSwitch: true,
 
     // Should use the prefers-color-scheme media-query,
