@@ -13,7 +13,7 @@ import Project from './project';
 import Blog from './blog';
 import Footer from './footer';
 import {
-  genericError,
+  scratchAPIError,
   getInitialTheme,
   noConfigError,
   notFoundError,
@@ -63,11 +63,20 @@ const GitProfile = ({ config }) => {
       `https://api.github.com/users/${sanitizedConfig.github.username}`
     );
 
-    const fetchScratchProjects = axios.get(
-      `${sanitizedConfig.scratch.corsProxy}api/scratch?username=${sanitizedConfig.scratch.username}`
-    );
+    let fetchScratchProjects;
 
-    Promise.all([fetchGithubData, fetchScratchProjects])
+    if (sanitizedConfig.scratch.username) {
+      fetchScratchProjects = axios.get(
+        `${sanitizedConfig.scratch.corsProxy}api/scratch?username=${sanitizedConfig.scratch.username}`
+      ).catch((error) => {
+        let customError = new Error('Error fetching Scratch projects');
+        customError.response = 418
+        handleError(customError);
+      });
+    }
+
+    if (sanitizedConfig.scratch.username && sanitizedConfig.github.username) {
+      Promise.all([fetchGithubData, fetchScratchProjects])
       .then(([githubResponse, scratchResponse]) => {
         // Handle GitHub data
         let data = githubResponse.data;
@@ -136,6 +145,55 @@ const GitProfile = ({ config }) => {
       .finally(() => {
         setLoading(false);
       });
+    }
+    else {
+      Promise.all([fetchGithubData])
+      .then(([githubResponse]) => {
+        // Handle GitHub data
+        let data = githubResponse.data;
+
+        let profileData = {
+          avatar: data.avatar_url,
+          name: data.name ? data.name : '',
+          bio: data.bio ? data.bio : '',
+          location: data.location ? data.location : '',
+          company: data.company ? data.company : '',
+        };
+
+        setProfile(profileData);
+
+        // Fetch GitHub repositories
+        let excludeRepo = '';
+        sanitizedConfig.github.exclude.projects.forEach((project) => {
+          excludeRepo += `+-repo:${sanitizedConfig.github.username}/${project}`;
+        });
+
+        let query = `user:${
+          sanitizedConfig.github.username
+        }+fork:${!sanitizedConfig.github.exclude.forks}${excludeRepo}`;
+
+        let url = `https://api.github.com/search/repositories?q=${query}&sort=${sanitizedConfig.github.sortBy}&per_page=${sanitizedConfig.github.limit}&type=Repositories`;
+
+        return axios.get(url, {
+          headers: {
+            'Content-Type': 'application/vnd.github.v3+json',
+          },
+        });
+      })
+      .then((response) => {
+        // Handle GitHub repositories data
+        let data = response.data;
+        setRepo(data.items);
+      })
+      .catch((error) => {
+        handleError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+    }
+
+   
   }, [setLoading]);
 
   const handleError = (error) => {
@@ -153,11 +211,14 @@ const GitProfile = ({ config }) => {
         setError(tooManyRequestError(reset));
       } else if (error.response.status === 404) {
         setError(notFoundError);
-      } else {
-        setError(genericError);
+      } else if (error.response.status === 418) {
+        setError()
+      } 
+      else {
+        setError(scratchAPIError);
       }
     } catch (error2) {
-      setError(genericError);
+      setError(scratchAPIError);
     }
   };
 

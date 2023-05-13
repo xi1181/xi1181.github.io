@@ -237,6 +237,17 @@ export const notFoundError = {
   ),
 };
 
+export const scratchAPIError = {
+  status: 418,
+  title: 'The Scratch Username is Incorrect.',
+  subTitle: (
+    <p>
+      Please provide correct scratch username in{' '}
+      <code>gitprofile.config.js</code>.
+    </p>
+  ),
+};
+
 export const genericError = {
   status: 500,
   title: 'Ops!!',
