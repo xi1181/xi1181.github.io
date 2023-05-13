@@ -2,13 +2,13 @@
 
 const config = {
   scratch: {
-    username: 'theyoungmaker', // Your Scratch username. (Required)
+    username: '', //TODO: Your Scratch username. (Required)
     limit: 8, // How many projects to display; maximum 20
     sortBy: 'date', // date | views | remixes
-    corsProxy: "https://scratchapicors-kppuummon-theyoungmaker.vercel.app/" // Enter your CORS Proxy here
+    corsProxy: "" //TODO: Enter your CORS Proxy here
   },
   github: {
-    username: 'theyoungmaker', // Your GitHub org/user name. (Required)
+    username: '', //TODO: Your GitHub org/user name. (Required)
     sortBy: 'stars', // stars | updated
     limit: 4, // How many projects to display.
     exclude: {
@@ -16,13 +16,13 @@ const config = {
       projects: [], // These projects will not be displayed. example: ['my-project1', 'my-project2']
     },
   },
-  social: {
-    linkedin: 'company/the-young-maker/',
-    facebook: 'theyoungmakersingapore',
-    instagram: 'the.young.maker',
-    tiktok: 'the.young.maker',
-    email: 'hello@theyoungmaker.com',
-    website: 'http://theyoungmaker.com',
+  social: { //TODO: Add in Socials
+    linkedin: '',
+    facebook: '',
+    instagram: '',
+    tiktok: '',
+    email: '',
+    website: '',
     // dev: '',
     // twitter: '',
     // mastodon: '',
@@ -90,7 +90,7 @@ const config = {
     },
   ],
 
-  // To hide the `My Projects` section, keep it empty.
+  // TODO: Add external projects
   externalProjects: [
     {
       title: 'Microbit Flappy Bird',
