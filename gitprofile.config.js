@@ -1,20 +1,20 @@
 // gitprofile.config.js
 
 const config = {
-  scratch: {
-    username: '', //TODO: Your Scratch username. (Required)
-    limit: 8, // How many projects to display; maximum 20
-    sortBy: 'date', // date | views | remixes
-    corsProxy: "" //TODO: Enter your CORS Proxy here
-  },
   github: {
-    username: '', //TODO: Your GitHub org/user name. (Required)
+    username: 'theyoungmaker', //TODO: Your GitHub org/user name. (Required)
     sortBy: 'stars', // stars | updated
     limit: 4, // How many projects to display.
     exclude: {
       forks: false, // Forked projects will not be displayed if set to true.
       projects: [], // These projects will not be displayed. example: ['my-project1', 'my-project2']
     },
+  },
+  scratch: {
+    username: '', //TODO: Your Scratch username. (Required)
+    limit: 8, // How many projects to display; maximum 20
+    sortBy: 'date', // date | views | remixes
+    corsProxy: "" //TODO: Enter your CORS Proxy here
   },
   social: { //TODO: Add in Socials
     linkedin: '',
