@@ -50,6 +50,7 @@ const config = {
     'ScratchJr',
     'Hopscotch',
     'Robotics',
+    'Typescript'
   ],
   experiences: [
     {
