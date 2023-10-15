@@ -139,7 +139,7 @@ export const sanitizeConfig = (config) => {
       username: config?.scratch?.username || '',
       limit: config?.scratch?.limit || 8,
       sortBy: config?.scratch?.sortBy || 'date',
-      corsProxy: config?.scratch?.corsProxy || "https://scratchapicors-kppuummon-theyoungmaker.vercel.app/"
+      corsProxy: config?.scratch?.corsProxy || "https://scratchapicors-8nbi5t6td-theyoungmaker.vercel.app/"
     },
     github: {
       username: config?.github?.username || '',
@@ -232,6 +232,17 @@ export const notFoundError = {
   subTitle: (
     <p>
       Please provide correct github username in{' '}
+      <code>gitprofile.config.js</code>.
+    </p>
+  ),
+};
+
+export const scratchAPIError = {
+  status: 418,
+  title: 'The Scratch Username is Incorrect.',
+  subTitle: (
+    <p>
+      Please provide correct scratch username in{' '}
       <code>gitprofile.config.js</code>.
     </p>
   ),

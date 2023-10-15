@@ -1,14 +1,8 @@
 // gitprofile.config.js
 
 const config = {
-  scratch: {
-    username: 'theyoungmaker', // Your Scratch username. (Required)
-    limit: 8, // How many projects to display; maximum 20
-    sortBy: 'date', // date | views | remixes
-    corsProxy: "https://scratchapicors-8nbi5t6td-theyoungmaker.vercel.app/" // Enter your CORS Proxy here
-  },
   github: {
-    username: 'theyoungmaker', // Your GitHub org/user name. (Required)
+    username: 'theyoungmaker', //TODO: Your GitHub org/user name. (Required)
     sortBy: 'stars', // stars | updated
     limit: 4, // How many projects to display.
     exclude: {
@@ -16,13 +10,20 @@ const config = {
       projects: [], // These projects will not be displayed. example: ['my-project1', 'my-project2']
     },
   },
+  scratch: {
+    username: 'theyoungmaker', //TODO: Your Scratch username. (Required)
+    limit: 8, // How many projects to display; maximum 20
+    sortBy: 'date', // date | views | remixes
+    corsProxy: 'https://scratchapicors-8nbi5t6td-theyoungmaker.vercel.app/', //TODO: Enter your CORS Proxy here
+  },
   social: {
-    linkedin: 'company/the-young-maker/',
-    facebook: 'theyoungmakersingapore',
-    instagram: 'the.young.maker',
-    tiktok: 'the.young.maker',
-    email: 'hello@theyoungmaker.com',
-    website: 'http://theyoungmaker.com',
+    //TODO: Add in Socials
+    linkedin: '',
+    facebook: '',
+    instagram: '',
+    tiktok: '',
+    email: '',
+    website: '',
     // dev: '',
     // twitter: '',
     // mastodon: '',
@@ -50,7 +51,7 @@ const config = {
     'ScratchJr',
     'Hopscotch',
     'Robotics',
-    'Typescript'
+    'Typescript',
   ],
   experiences: [
     {
@@ -73,7 +74,7 @@ const config = {
       name: 'Lorem ipsum',
       body: 'Lorem ipsum dolor sit amet',
       year: 'March 2022',
-      link: 'https://example.com'
+      link: 'https://example.com',
     },
   ],
   education: [
@@ -91,7 +92,7 @@ const config = {
     },
   ],
 
-  // To hide the `My Projects` section, keep it empty.
+  // TODO: Add external projects
   externalProjects: [
     {
       title: 'Microbit Flappy Bird',
@@ -125,10 +126,12 @@ const config = {
     snippetVersion: 6,
   },
   themeConfig: {
+    //TODO: Change the theme of the website to your liking
     defaultTheme: 'bumblebee',
 
     // Hides the switch in the navbar
     // Useful if you want to support a single color mode
+    //TODO: Change to false if you want to have the option to see switch
     disableSwitch: true,
 
     // Should use the prefers-color-scheme media-query,
