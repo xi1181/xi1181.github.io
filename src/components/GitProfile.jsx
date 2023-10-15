@@ -69,9 +69,8 @@ const GitProfile = ({ config }) => {
       fetchScratchProjects = axios.get(
         `${sanitizedConfig.scratch.corsProxy}api/scratch?username=${sanitizedConfig.scratch.username}`
       ).catch((error) => {
-        let customError = new Error('Error fetching Scratch projects');
-        customError.response = 418
-        handleError(customError);
+        console.error("Error fetching Scratch Projects:", error);
+        return { data: []}
       });
     }
 
