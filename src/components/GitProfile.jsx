@@ -91,6 +91,7 @@ const GitProfile = ({ config }) => {
           setProfile(profileData);
 
           // Handle Scratch projects data
+        
           if (
             scratchResponse.data.length > 0 &&
             scratchResponse.data.response != 'Too many requests'
