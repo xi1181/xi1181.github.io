@@ -14,9 +14,10 @@ const config = {
     username: '', //TODO: Your Scratch username. (Required)
     limit: 8, // How many projects to display; maximum 20
     sortBy: 'date', // date | views | remixes
-    corsProxy: "" //TODO: Enter your CORS Proxy here
+    corsProxy: '', //TODO: Enter your CORS Proxy here
   },
-  social: { //TODO: Add in Socials
+  social: {
+    //TODO: Add in Socials
     linkedin: '',
     facebook: '',
     instagram: '',
@@ -72,7 +73,7 @@ const config = {
       name: 'Lorem ipsum',
       body: 'Lorem ipsum dolor sit amet',
       year: 'March 2022',
-      link: 'https://example.com'
+      link: 'https://example.com',
     },
   ],
   education: [
@@ -123,7 +124,8 @@ const config = {
     id: '',
     snippetVersion: 6,
   },
-  themeConfig: { //TODO: Change the theme of the website to your liking
+  themeConfig: {
+    //TODO: Change the theme of the website to your liking
     defaultTheme: 'bumblebee',
 
     // Hides the switch in the navbar

@@ -587,7 +587,6 @@ const config = {
 };
 ```
 
-
 #### External Projects
 
 In this section you can showcase your external/personal projects.
@@ -608,6 +607,7 @@ const config = {
 ```
 
 #### Scratch Projects
+
 In this section you can showcase your Scratch projects.
 
 ```js
