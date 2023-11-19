@@ -58,7 +58,6 @@ const GitProfile = ({ config }) => {
   const loadData = useCallback(() => {
     setLoading(true);
 
-
     const fetchGithubData = axios.get(
       `https://api.github.com/users/${sanitizedConfig.github.username}`
     );
@@ -66,133 +65,134 @@ const GitProfile = ({ config }) => {
     let fetchScratchProjects;
 
     if (sanitizedConfig.scratch.username) {
-      fetchScratchProjects = axios.get(
-        `${sanitizedConfig.scratch.corsProxy}api/scratch?username=${sanitizedConfig.scratch.username}`
-      ).catch((error) => {
-        console.error("Error fetching Scratch Projects:", error);
-        return { data: []}
-      });
+      fetchScratchProjects = axios
+        .get(
+          `${sanitizedConfig.scratch.corsProxy}api/scratch?username=${sanitizedConfig.scratch.username}`
+        )
+        .catch((error) => {
+          console.error('Error fetching Scratch Projects:', error);
+          return { data: [] };
+        });
     }
 
     if (sanitizedConfig.scratch.username && sanitizedConfig.github.username) {
       Promise.all([fetchGithubData, fetchScratchProjects])
-      .then(([githubResponse, scratchResponse]) => {
-        // Handle GitHub data
-        let data = githubResponse.data;
+        .then(([githubResponse, scratchResponse]) => {
+          // Handle GitHub data
+          let data = githubResponse.data;
 
-        let profileData = {
-          avatar: data.avatar_url,
-          name: data.name ? data.name : '',
-          bio: data.bio ? data.bio : '',
-          location: data.location ? data.location : '',
-          company: data.company ? data.company : '',
-        };
+          let profileData = {
+            avatar: data.avatar_url,
+            name: data.name ? data.name : '',
+            bio: data.bio ? data.bio : '',
+            location: data.location ? data.location : '',
+            company: data.company ? data.company : '',
+          };
 
-        setProfile(profileData);
+          setProfile(profileData);
 
-        // Handle Scratch projects data
-        const sortedProjectsLimit = scratchResponse.data
-          .sort((a, b) => {
-            // Parse the history.modified timestamps as Date objects
-            if (sanitizedConfig.scratch.sortBy === 'views') {
-              // Sort in descending order (highest views first)
-              return b.stats.views - a.stats.views;
-            } else if (sanitizedConfig.scratch.sortBy === 'remixes') {
-              // Sort in descending order (highest remixes first)
-              return b.stats.remixes - a.stats.remixes;
-            } else {
-              const dateA = new Date(a.history.modified);
-              const dateB = new Date(b.history.modified);
+          // Handle Scratch projects data
+          if (scratchResponse.data.length > 0) {
+            const sortedProjectsLimit = scratchResponse.data
+              .sort((a, b) => {
+                // Parse the history.modified timestamps as Date objects
+                if (sanitizedConfig.scratch.sortBy === 'views') {
+                  // Sort in descending order (highest views first)
+                  return b.stats.views - a.stats.views;
+                } else if (sanitizedConfig.scratch.sortBy === 'remixes') {
+                  // Sort in descending order (highest remixes first)
+                  return b.stats.remixes - a.stats.remixes;
+                } else {
+                  const dateA = new Date(a.history.modified);
+                  const dateB = new Date(b.history.modified);
 
-              // Sort in ascending order
-              return dateA - dateB;
+                  // Sort in ascending order
+                  return dateA - dateB;
 
-              // Sort in descending order (most recent first)
-              // return dateB - dateA;
-            }
-          })
-          .slice(0, sanitizedConfig.scratch.limit);
+                  // Sort in descending order (most recent first)
+                  // return dateB - dateA;
+                }
+              })
+              .slice(0, sanitizedConfig.scratch.limit);
 
-        setScratchProjects(sortedProjectsLimit);
+            setScratchProjects(sortedProjectsLimit);
+          }
 
-        // Fetch GitHub repositories
-        let excludeRepo = '';
-        sanitizedConfig.github.exclude.projects.forEach((project) => {
-          excludeRepo += `+-repo:${sanitizedConfig.github.username}/${project}`;
+          // Fetch GitHub repositories
+          let excludeRepo = '';
+          sanitizedConfig.github.exclude.projects.forEach((project) => {
+            excludeRepo += `+-repo:${sanitizedConfig.github.username}/${project}`;
+          });
+
+          let query = `user:${
+            sanitizedConfig.github.username
+          }+fork:${!sanitizedConfig.github.exclude.forks}${excludeRepo}`;
+
+          let url = `https://api.github.com/search/repositories?q=${query}&sort=${sanitizedConfig.github.sortBy}&per_page=${sanitizedConfig.github.limit}&type=Repositories`;
+
+          return axios.get(url, {
+            headers: {
+              'Content-Type': 'application/vnd.github.v3+json',
+            },
+          });
+        })
+        .then((response) => {
+          // Handle GitHub repositories data
+          let data = response.data;
+          setRepo(data.items);
+        })
+        .catch((error) => {
+          handleError(error);
+        })
+        .finally(() => {
+          setLoading(false);
         });
-
-        let query = `user:${
-          sanitizedConfig.github.username
-        }+fork:${!sanitizedConfig.github.exclude.forks}${excludeRepo}`;
-
-        let url = `https://api.github.com/search/repositories?q=${query}&sort=${sanitizedConfig.github.sortBy}&per_page=${sanitizedConfig.github.limit}&type=Repositories`;
-
-        return axios.get(url, {
-          headers: {
-            'Content-Type': 'application/vnd.github.v3+json',
-          },
-        });
-      })
-      .then((response) => {
-        // Handle GitHub repositories data
-        let data = response.data;
-        setRepo(data.items);
-      })
-      .catch((error) => {
-        handleError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-    }
-    else {
+    } else {
       Promise.all([fetchGithubData])
-      .then(([githubResponse]) => {
-        // Handle GitHub data
-        let data = githubResponse.data;
+        .then(([githubResponse]) => {
+          // Handle GitHub data
+          let data = githubResponse.data;
 
-        let profileData = {
-          avatar: data.avatar_url,
-          name: data.name ? data.name : '',
-          bio: data.bio ? data.bio : '',
-          location: data.location ? data.location : '',
-          company: data.company ? data.company : '',
-        };
+          let profileData = {
+            avatar: data.avatar_url,
+            name: data.name ? data.name : '',
+            bio: data.bio ? data.bio : '',
+            location: data.location ? data.location : '',
+            company: data.company ? data.company : '',
+          };
 
-        setProfile(profileData);
+          setProfile(profileData);
 
-        // Fetch GitHub repositories
-        let excludeRepo = '';
-        sanitizedConfig.github.exclude.projects.forEach((project) => {
-          excludeRepo += `+-repo:${sanitizedConfig.github.username}/${project}`;
+          // Fetch GitHub repositories
+          let excludeRepo = '';
+          sanitizedConfig.github.exclude.projects.forEach((project) => {
+            excludeRepo += `+-repo:${sanitizedConfig.github.username}/${project}`;
+          });
+
+          let query = `user:${
+            sanitizedConfig.github.username
+          }+fork:${!sanitizedConfig.github.exclude.forks}${excludeRepo}`;
+
+          let url = `https://api.github.com/search/repositories?q=${query}&sort=${sanitizedConfig.github.sortBy}&per_page=${sanitizedConfig.github.limit}&type=Repositories`;
+
+          return axios.get(url, {
+            headers: {
+              'Content-Type': 'application/vnd.github.v3+json',
+            },
+          });
+        })
+        .then((response) => {
+          // Handle GitHub repositories data
+          let data = response.data;
+          setRepo(data.items);
+        })
+        .catch((error) => {
+          handleError(error);
+        })
+        .finally(() => {
+          setLoading(false);
         });
-
-        let query = `user:${
-          sanitizedConfig.github.username
-        }+fork:${!sanitizedConfig.github.exclude.forks}${excludeRepo}`;
-
-        let url = `https://api.github.com/search/repositories?q=${query}&sort=${sanitizedConfig.github.sortBy}&per_page=${sanitizedConfig.github.limit}&type=Repositories`;
-
-        return axios.get(url, {
-          headers: {
-            'Content-Type': 'application/vnd.github.v3+json',
-          },
-        });
-      })
-      .then((response) => {
-        // Handle GitHub repositories data
-        let data = response.data;
-        setRepo(data.items);
-      })
-      .catch((error) => {
-        handleError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
     }
-
-   
   }, [setLoading]);
 
   const handleError = (error) => {
@@ -211,9 +211,8 @@ const GitProfile = ({ config }) => {
       } else if (error.response.status === 404) {
         setError(notFoundError);
       } else if (error.response.status === 418) {
-        setError()
-      } 
-      else {
+        setError();
+      } else {
         setError(scratchAPIError);
       }
     } catch (error2) {
