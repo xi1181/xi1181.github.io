@@ -2,7 +2,7 @@
 
 const config = {
   github: {
-    username: 'theyoungmaker', //TODO: Your GitHub org/user name. (Required)
+    username: '', //TODO: Your GitHub org/user name. (Required)
     sortBy: 'stars', // stars | updated
     limit: 4, // How many projects to display.
     exclude: {
@@ -11,7 +11,7 @@ const config = {
     },
   },
   scratch: {
-    username: 'theyoungmaker', //TODO: Your Scratch username. (Required)
+    username: '', //TODO: Your Scratch username. (Required)
     limit: 8, // How many projects to display; maximum 20
     sortBy: 'date', // date | views | remixes
     corsProxy: 'https://scratchapicors-8nbi5t6td-theyoungmaker.vercel.app/', //TODO: Enter your CORS Proxy here
