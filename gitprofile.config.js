@@ -2,9 +2,9 @@
 
 const config = {
   github: {
-    username: '', //TODO: Your GitHub org/user name. (Required)
+    username: 'xi1181', //TODO: Your GitHub org/user name. (Required)
     sortBy: 'stars', // stars | updated
-    limit: 4, // How many projects to display.
+    limit: 8, // How many projects to display.
     exclude: {
       forks: false, // Forked projects will not be displayed if set to true.
       projects: [], // These projects will not be displayed. example: ['my-project1', 'my-project2']
@@ -18,12 +18,12 @@ const config = {
   },
   social: {
     //TODO: Add in Socials
-    linkedin: '',
-    facebook: '',
-    instagram: '',
-    tiktok: '',
-    email: '',
-    website: '',
+    // linkedin: '',
+    // facebook: '',
+    // instagram: '',
+    // tiktok: '',
+    email: 'xi.chin.2010@gmail.com',
+    website: 'https://theyoungmaker.com',
     // dev: '',
     // twitter: '',
     // mastodon: '',
@@ -40,18 +40,9 @@ const config = {
       'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', // Empty fileUrl will hide the `Download Resume` button.
   },
   skills: [
-    'Scratch',
-    'Microbit',
-    'JavaScript',
     'Design Thinking',
     'Python',
     'Git',
-    'CSS',
-    'MakeCode',
-    'ScratchJr',
-    'Hopscotch',
-    'Robotics',
-    'Typescript',
   ],
   experiences: [
     {
@@ -79,16 +70,16 @@ const config = {
   ],
   education: [
     {
-      institution: 'Institution Name',
-      degree: 'Degree',
-      from: '2015',
-      to: '2019',
+      institution: 'Maha Bodhi School',
+      degree: 'PSLE',
+      from: '2017',
+      to: '2022',
     },
     {
-      institution: 'Institution Name',
-      degree: 'Degree',
-      from: '2012',
-      to: '2014',
+      institution: 'Anglican High School ',
+      degree: 'O Level',
+      from: '2023',
+      to: '2026',
     },
   ],
 
@@ -127,7 +118,7 @@ const config = {
   },
   themeConfig: {
     //TODO: Change the theme of the website to your liking
-    defaultTheme: 'bumblebee',
+    defaultTheme: 'dark',
 
     // Hides the switch in the navbar
     // Useful if you want to support a single color mode
